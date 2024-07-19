@@ -112,6 +112,8 @@
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormPesquisa";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPesquisa";

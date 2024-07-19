@@ -4,12 +4,8 @@ using Layout.Request;
 using Layout.Response;
 using Layout.Service;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Layout.Handles
 {
@@ -25,11 +21,8 @@ namespace Layout.Handles
 
         public async Task<Response<Autor?>> CreateAutor(AutorRequest request)
         {
-            var autor = new Autor
-            {
-                Nome = request.nome,
-            };
-
+            var autor = new Autor { Nome = request.nome };
+            
             try
             {
                 using (var conn = _dataBaseService.GetConnection())
@@ -206,7 +199,7 @@ namespace Layout.Handles
                     await conn.CloseAsync();
                 }
 
-                return new Response<Usuario?>(usuario, "Usuario criado com sucesso.");
+                return new Response<Usuario?>(usuario, "Usuário criado com sucesso.");
             }
             catch (MySqlException ex)
             {
@@ -218,7 +211,7 @@ namespace Layout.Handles
             }
         }
 
-        public async Task<DataTable> GetAll(string query)
+        public async Task<Response<DataTable?>> GetAll(string query)
         {
             DataTable dt = new DataTable();
 
@@ -235,13 +228,14 @@ namespace Layout.Handles
                             await adapter.FillAsync(dt);
                         }
                     }
+
                     await conn.CloseAsync();
                 }
-                return dt;
+                return new Response<DataTable?>(dt);
             }
             catch (MySqlException ex)
             {
-                throw ex;
+                return new Response<DataTable?>(null,$"Erro:{ex.Message}");
             }
         }
 
@@ -362,7 +356,7 @@ namespace Layout.Handles
             }
         }
 
-        public async Task<bool> VerificaStatus(int Livro_id)
+        public async Task<Response<bool>> VerificaStatus(int Livro_id)
         {
             int status = 0;
             try
@@ -389,11 +383,11 @@ namespace Layout.Handles
                     await conn.CloseAsync();
                 }
 
-                return status == 0;
+                return new Response<bool>(status == 0);
             }
             catch (MySqlException ex)
             {
-                return false;
+                return new Response<bool>(false,$"{ex.Message}");
 
             }
         }

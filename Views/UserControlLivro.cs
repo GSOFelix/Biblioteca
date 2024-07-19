@@ -47,10 +47,20 @@ namespace Layout.View
             if (e.KeyCode == Keys.A)
             {
                 text_autor.Text = "";
-                DataTable dt = new DataTable();
-                string query = "SELECT * FROM AUTOR";
-                dt = await _handler.GetAll(query);
 
+                DataTable? dt = new DataTable();
+
+                string query = "SELECT * FROM AUTOR ORDER BY NOME";
+
+                try
+                {
+                    var request = await _handler.GetAll(query);
+                    dt = request.Data;
+                }
+                catch(Exception ex) 
+                {
+                    MessageBox.Show($"{ex.Message}");
+                }
 
                 FormPesquisa pesquisa = new FormPesquisa(dt);
 

@@ -45,11 +45,21 @@ namespace Layout.View
             if (e.KeyCode == Keys.A)
             {
                 text_UserId.Text = "";
-                DataTable dt = new DataTable();
-                string query = "SELECT ID,NOME FROM USUARIOS";
-                dt = await _handler.GetAll(query);
 
+                DataTable? dt = new DataTable();
 
+                string query = "SELECT ID,NOME FROM USUARIOS ORDER BY NOME";
+
+                try
+                {
+                    var request = await _handler.GetAll(query);
+                    dt = request.Data;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro : {ex.Message}");
+                }
+                
                 FormPesquisa pesquisa = new FormPesquisa(dt);
 
                 if (pesquisa.ShowDialog() == DialogResult.OK)
@@ -73,11 +83,21 @@ namespace Layout.View
             if (e.KeyCode == Keys.A)
             {
                 text_LivroId.Text = "";
-                DataTable dt = new DataTable();
-                string query = "SELECT ID,TITULO,STATUS FROM LIVROS";
-                dt = await _handler.GetAll(query);
 
+                DataTable? dt = new DataTable();
 
+                string query = "SELECT ID,TITULO,STATUS FROM LIVROS ORDER BY TITULO";
+                try
+                {
+                    var request = await _handler.GetAll(query);
+
+                    dt = request.Data;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"erro: {ex.Message}");
+                }
+                
                 FormPesquisa pesquisa = new FormPesquisa(dt);
 
                 if (pesquisa.ShowDialog() == DialogResult.OK)
@@ -143,7 +163,8 @@ namespace Layout.View
                 return;
             }
 
-            if (!await _handler.VerificaStatus(livroId))
+            var status = await _handler.VerificaStatus(livroId);
+            if (!status.Data)
             {
                 MessageBox.Show("Livro Indisponivel para emprestimo");
                 return;
