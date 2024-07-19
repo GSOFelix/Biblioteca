@@ -138,7 +138,7 @@ namespace Layout.View
             bool livroValido = int.TryParse(text_LivroId.Text, out livroId);
             bool dataEmprestimoValida = DateTime.TryParseExact(text_dataEmp.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataEmprestimo);
             bool dataRetornoValida = DateTime.TryParseExact(text_dataRet.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataRetorno);
-            bool valorTotalValido = Decimal.TryParse(text_Total.Text.Replace("R$ ", ""), out valorTotal);
+            bool valorTotalValido = decimal.TryParse(text_Total.Text.Replace("R$ ", ""), out valorTotal);
 
             #region Validações
             if (string.IsNullOrEmpty(text_UserId.Text) ||
