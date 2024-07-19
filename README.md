@@ -34,7 +34,7 @@ Na pasta `dados_bd` deste repositório, você encontrará o script necessário p
 
 1. Clone o repositório:
     ```sh
-    git clone https://github.com/seu-usuario/seu-repositorio.git
+    git clone https://github.com/GSOFelix/Biblioteca
     ```
 2. Abra o projeto no Visual Studio.
 3. Configure a string de conexão ao banco de dados em `Common\ConfiguracoesForm.cs` do projeto.
