@@ -45,7 +45,7 @@ Na pasta `dados_bd` deste repositório, você encontrará o script necessário p
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias e correções.
 
 
-## Autor
+## Autores
 
-- **Seu Nome:** [Guilherme Felix, Vitor Oscar]
+- **Nome:** [Guilherme Felix, Vitor Oscar]
 - **GitHub:** [https://github.com/GSOFelix] 
