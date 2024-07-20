@@ -47,5 +47,6 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 
 ## Autores
 
-- **Nome:** [Guilherme Felix, Vitor Oscar]
+- **Nome:** [Guilherme Felix]
+- **Colaboração:** [Vitor Oscar]
 - **GitHub:** [https://github.com/GSOFelix] 

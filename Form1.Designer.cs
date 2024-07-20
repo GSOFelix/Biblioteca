@@ -186,7 +186,7 @@
             bt_emprestimo.Size = new Size(210, 79);
             bt_emprestimo.TabIndex = 4;
             bt_emprestimo.TabStop = false;
-            bt_emprestimo.Text = "         Emprestimo";
+            bt_emprestimo.Text = "         Empréstimo";
             bt_emprestimo.TextAlign = ContentAlignment.MiddleLeft;
             bt_emprestimo.UseVisualStyleBackColor = true;
             bt_emprestimo.Click += bt_emprestimo_Click;

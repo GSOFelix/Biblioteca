@@ -28,22 +28,22 @@ namespace Layout.Views
 
         private async void bt_salvar_Click(object sender, EventArgs e)
         {
-            var autor = new AutorRequest
+            if (string.IsNullOrEmpty(text_AutorNome.Text))
             {
-                nome = text_AutorNome.Text,
-            };
+                MessageBox.Show("Existem campos em branco!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+              var autor = new AutorRequest { nome = text_AutorNome.Text };
+    
             try
             {
                 var result = await _handler.CreateAutor(autor);
+
                 if (result.Data is not null)
-                {
                     MessageBox.Show($"{result.Menssage}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
                 else
-                {
                     MessageBox.Show($"{result.Menssage}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
 
                 text_AutorNome.Clear();
             }

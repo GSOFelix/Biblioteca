@@ -59,7 +59,7 @@ namespace Layout.View
                 {
                     MessageBox.Show($"Erro : {ex.Message}");
                 }
-                
+
                 FormPesquisa pesquisa = new FormPesquisa(dt);
 
                 if (pesquisa.ShowDialog() == DialogResult.OK)
@@ -93,11 +93,11 @@ namespace Layout.View
 
                     dt = request.Data;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show($"erro: {ex.Message}");
                 }
-                
+
                 FormPesquisa pesquisa = new FormPesquisa(dt);
 
                 if (pesquisa.ShowDialog() == DialogResult.OK)
@@ -141,11 +141,10 @@ namespace Layout.View
             bool valorTotalValido = decimal.TryParse(text_Total.Text.Replace("R$ ", ""), out valorTotal);
 
             #region Validações
-            if (string.IsNullOrEmpty(text_UserId.Text) ||
-               string.IsNullOrEmpty(text_LivroId.Text) ||
-               string.IsNullOrEmpty(text_dataEmp.Text) ||
-               string.IsNullOrEmpty(text_dataRet.Text) ||
-               string.IsNullOrEmpty(text_Total.Text))
+
+            TextBox[] campos = { text_UserId, text_LivroId, text_dataEmp, text_dataRet, text_Total };
+
+            if (campos.Any(campo => string.IsNullOrEmpty(campo.Text)))
             {
                 MessageBox.Show("Os campos não podem ficar em branco", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -160,6 +159,18 @@ namespace Layout.View
             if (!usuarioValido || !livroValido)
             {
                 MessageBox.Show("Por favor, insira dados válidos nos campos de Usuário e Livro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (dataRetorno < dataEmprestimo || dataEmprestimo > dataRetorno)
+            {
+                MessageBox.Show("Data de emprestimo precisa ser menor ou igual a data de retorno", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (valorTotal < 1.00m)
+            {
+                MessageBox.Show("Valor Total minimo = 1", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -186,19 +197,17 @@ namespace Layout.View
                 var emprestimo = await _handler.CreateEmprestimo(request);
 
                 if (emprestimo.Data is not null)
-                {
                     MessageBox.Show($"{emprestimo.Menssage}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+
                 else
-                {
                     MessageBox.Show($"{emprestimo.Menssage}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
 
                 ConfiguracoesCampos.LimpaCampos(this);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ConfiguracoesCampos.LimpaCampos(this);
             }
         }
 

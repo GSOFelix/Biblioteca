@@ -66,7 +66,7 @@
             label1.Name = "label1";
             label1.Size = new Size(151, 32);
             label1.TabIndex = 2;
-            label1.Text = "Emprestimo";
+            label1.Text = "Empréstimo";
             // 
             // text_dataEmp
             // 
@@ -175,7 +175,7 @@
             // text_Total
             // 
             text_Total.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            text_Total.Location = new Point(156, 297);
+            text_Total.Location = new Point(156, 294);
             text_Total.Name = "text_Total";
             text_Total.Size = new Size(108, 29);
             text_Total.TabIndex = 40;
@@ -187,7 +187,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             label6.ForeColor = Color.Maroon;
-            label6.Location = new Point(58, 301);
+            label6.Location = new Point(58, 298);
             label6.Name = "label6";
             label6.Size = new Size(86, 20);
             label6.TabIndex = 23;

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -71,16 +72,15 @@ namespace Layout.View
                 MessageBox.Show("Campos com erros!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(text_Nome.Text) ||
-               string.IsNullOrEmpty(text_cpf.Text) ||
-               string.IsNullOrEmpty(text_idade.Text) ||
-               string.IsNullOrEmpty(text_rua.Text) ||
-               string.IsNullOrEmpty(text_numero.Text) ||
-               string.IsNullOrEmpty(text_bairro.Text) ||
-               string.IsNullOrEmpty(text_cidade.Text))
+
+            TextBox[] campos = { text_Nome, text_cpf, text_idade, text_rua, text_numero, text_bairro, text_cidade };
+
+            if(campos.Any(campo => string.IsNullOrEmpty(campo.Text)))
             {
                 MessageBox.Show("Existem campos em branco!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+           
             #endregion
 
             var usuario = new UsuarioRequest
@@ -99,13 +99,10 @@ namespace Layout.View
                 var result = await _handler.CreateUsuario(usuario);
 
                 if (result.Data is not null)
-                {
                     MessageBox.Show($"{result.Menssage}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+
                 else
-                {
                     MessageBox.Show($"{result.Menssage}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
 
                 ConfiguracoesCampos.LimpaCampos(this);
             }

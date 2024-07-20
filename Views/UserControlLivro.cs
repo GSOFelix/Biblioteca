@@ -125,11 +125,10 @@ namespace Layout.View
         private async void bt_salvar_Click(object sender, EventArgs e)
         {
             #region Validações
-            if (string.IsNullOrEmpty(text_titulo.Text) ||
-                string.IsNullOrEmpty(text_autorNome.Text) ||
-                string.IsNullOrEmpty(text_localizacao.Text) ||
-                string.IsNullOrEmpty(text_ano.Text) ||
-                string.IsNullOrEmpty(text_tipoLit.Text))
+
+            TextBox[] campos = {text_ano, text_tipoLit, text_titulo ,text_autorNome, text_localizacao};
+
+            if (campos.Any(campo => string.IsNullOrEmpty(campo.Text)))
             {
                 MessageBox.Show("Existem campos em branco!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -147,7 +146,8 @@ namespace Layout.View
                 Titulo = text_titulo.Text,
                 Autor_Id = Convert.ToInt32(text_autor.Text),
                 Localizacao = text_localizacao.Text,
-                Ano = ano
+                Ano = ano,
+                Tipo_Lieterario = text_tipoLit.Text,
             };
 
             try
@@ -155,20 +155,18 @@ namespace Layout.View
                 var livro = await _handler.CreateLivro(request);
 
                 if (livro.Data is not null)
-                {
                     MessageBox.Show($"{livro.Menssage}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+
                 else
-                {
                     MessageBox.Show($"{livro.Menssage}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
 
                 ConfiguracoesCampos.LimpaCampos(this);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                ConfiguracoesCampos.LimpaCampos(this);
+            }   
 
         }
 
@@ -181,9 +179,7 @@ namespace Layout.View
                     var autor = await _handler.GetAutorById(auto_id);
 
                     if (autor.Data is not null)
-                    {
                         text_autorNome.Text = autor.Data.Nome;
-                    }
                 }
                 catch(Exception ex)
                 {
